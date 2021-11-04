@@ -5,6 +5,7 @@ import ir.maktab56.springbootexample.domain.User;
 import ir.maktab56.springbootexample.exception.AccessDeniedRunTimeException;
 import ir.maktab56.springbootexample.repository.UserRepository;
 import ir.maktab56.springbootexample.service.UserService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserRepository>
     @Override
     @Transactional
     public User saveNotSecure(User user) {
+        user.setPassword(NoOpPasswordEncoder.getInstance().encode(user.getPassword()));
         return super.saveNotSecure(user);
     }
 

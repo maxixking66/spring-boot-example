@@ -1,5 +1,7 @@
 package ir.maktab56.springbootexample.config;
 
+import ir.maktab56.springbootexample.config.security.RoleName;
+import ir.maktab56.springbootexample.config.security.SecurityConstant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -20,18 +22,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .mvcMatchers("/admin")
-                .hasRole("ADMIN")
-                .mvcMatchers("/manager")
-                .hasRole("MANAGER")
-                .mvcMatchers("", "/")
+                .mvcMatchers(SecurityConstant.getAdminPaths())
+                .hasRole(RoleName.ADMIN)
+                .mvcMatchers(SecurityConstant.getStudentPath())
+                .hasRole(RoleName.STUDENT)
+                .mvcMatchers(SecurityConstant.getTeacherPaths())
+                .hasRole(RoleName.TEACHER)
+                .mvcMatchers(SecurityConstant.getPermitAllUrls())
                 .permitAll()
                 .and()
                 .authorizeRequests()
                 .anyRequest()
                 .authenticated();
 
-        http.httpBasic();
         http.formLogin();
     }
 }
