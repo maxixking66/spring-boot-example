@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -37,5 +38,10 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserRepository>
         throw new AccessDeniedRunTimeException(
                 "can't delete entity with id: " + id
         );
+    }
+
+    @Override
+    public Optional<User> getUserByUsername(String username) {
+        return repository.getUserByUsername(username);
     }
 }

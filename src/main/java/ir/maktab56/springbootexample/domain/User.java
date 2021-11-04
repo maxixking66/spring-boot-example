@@ -8,7 +8,10 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = User.TABLE_NAME)
@@ -39,4 +42,7 @@ public class User extends BaseEntity<Long> {
 
     @Column(name = IS_ACTIVE)
     private Boolean isActive;
+
+    @ManyToMany
+    private Set<Role> roles = new HashSet<>();
 }
