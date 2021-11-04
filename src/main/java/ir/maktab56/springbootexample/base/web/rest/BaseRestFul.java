@@ -5,6 +5,7 @@ import ir.maktab56.springbootexample.base.BaseDTO;
 import ir.maktab56.springbootexample.base.BaseEntity;
 import ir.maktab56.springbootexample.base.mapper.BaseMapper;
 import ir.maktab56.springbootexample.base.service.BaseService;
+import ir.maktab56.springbootexample.exception.BadInputRunTimeException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -77,11 +78,17 @@ public class BaseRestFul<E extends BaseEntity<PK>, D extends BaseDTO<PK>, PK ext
             return ResponseEntity.notFound().build();
         }*/
 
+        /*return optionalE.map(e -> ResponseEntity.ok(
+                mapper.convertEntityToDTO(
+                        e
+                )
+        )).orElseGet(() -> ResponseEntity.notFound().build());*/
+
         return optionalE.map(e -> ResponseEntity.ok(
                 mapper.convertEntityToDTO(
                         e
                 )
-        )).orElseGet(() -> ResponseEntity.notFound().build());
+        )).orElseThrow(() -> new BadInputRunTimeException("entity not found!!!"));
 
     }
 
