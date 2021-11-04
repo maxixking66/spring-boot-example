@@ -93,7 +93,7 @@ public class BaseRestFul<E extends BaseEntity<PK>, D extends BaseDTO<PK>, PK ext
     }
 
     @PostMapping
-    @ApiOperation(value = "save new entity")
+    @ApiOperation(value = "save new entity", notes = "this is notes")
     public ResponseEntity<D> save(@RequestBody D d) {
 
         if (d.getId() != null) {
